@@ -11,11 +11,11 @@ b. bowtie reference database </p>
 protein coding cDNA seq from ENSEMBL database: 
 i.e. 
 
-wegt ftp://ftp.ensembl.org/pub/release-94/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz; 
+>wegt ftp://ftp.ensembl.org/pub/release-94/fasta/homo_sapiens/cds/Homo_sapiens.GRCh38.cds.all.fa.gz;
 
-gunzip  Homo_sapiens.GRCh38.cds.all.fa.gz; 
+>gunzip  Homo_sapiens.GRCh38.cds.all.fa.gz; 
 
-bowtie-build Homo_sapiens.GRCh38.cds.all.fa protein_cds;
+>bowtie-build Homo_sapiens.GRCh38.cds.all.fa protein_cds;
 
 miRNA information from miRbase database:
 i.e. 
