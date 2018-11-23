@@ -1,7 +1,8 @@
-prerequired enviroment 
+#Pre-required enviroment 
++
 a. bowtie (version1, >=1.2.2 ) install
 b. bowtie reference database 
-
++
 the analysis pipeline
 1. download small RNA annotation database
 
