@@ -24,14 +24,16 @@ my %infor2 =();
 open(INFL, $ARGV[1]) or die "$!";
 while(<INFL>){
   next if (!/transcript/);
-  /Name=(.*?);.*type=(.*?);/;
+#  /type=(.*?);ID=(.*?)[;\n]/;
 #  print $1, " ", $2, "\n";
+  /type=(.*?)[;\n]/;
+  my $type = $1;
+  /ID=(.*?)[;\n]/;
   my $name = $1;
-  my $type = $2;
   my @t =split /\t/, $_;
   my $d = $t[4]-$t[3];
   if(exists $conds{$type} and $conds{$type}>$d){
-    $infor2{$1}=$_;
+    $infor2{$name}=$_;
 #    print $_;
   } 
 
@@ -42,6 +44,7 @@ foreach my $name (keys %infor2){
   my @t=split /\t/, $infor2{$name};
   my($type) = $t[-1] =~ /type=(.*?);/;
   my $range = $t[3]. ",". $t[4];
+# type, chr, strand, range
 #  print $name, " " , $type, $t[0], " ", $t[6],  " " , $range, "\n";
   $infor{$type}{$t[0]}{$t[6]}{$range}= $name;
 }

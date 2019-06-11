@@ -1,52 +1,50 @@
 use strict;
 
 if(@ARGV<1) {
-  die "perl count_ncRNA.pl protein.map ncRNA.map seq.map";
+  die "perl count_ncRNA.pl ncRNA.map";
 }
 
 #count  all;
 my %c1 =();
 #multireads
 my %mr =();
+my %mr2 =();
 
-open(INFL, $ARGV[1]) or die "$!";
-while(<INFL>){
-  my @t=split /\t/;
-  $mr{$t[0]}++;
-}
-close(INFL);
-
-open(INFL, $ARGV[1]) or die "$!";
+open(INFL, $ARGV[0]) or die "$!";
 while(<INFL>){
   chomp;
   my @t =split /\t/;
   my @t2 = split /_/, $t[0];
-  $c1{$t[-1]}{$t2[1]}{$t2[2]}=1/$mr{$t[0]};
+  $mr{$t[0]} =1;
+  $c1{$t[-1]}{$t2[1]}{$t2[2]}=1;
+  $mr2{$t2[1]}{$t2[2]}{$t[-1]}=1;
+  
 }
 close(INFL);
 
 my %others=();
-open(INFL, $ARGV[2]) or die "$!";
+open(INFL, "matched.fa") or die "need matched_protein.fa file and match.fa file";
 while(<INFL>){
-  my @t =split /\t/;
-  $t[0] =~s/ (.*)//;
-
-  if(exists $mr{$t[0]}){
+  if (/^>/){
+  chomp; 
+  my $id = substr($_, 1,length($_));
+  if(exists $mr{$id}){
     next;
   }else{
-    my @t2 = split /_/, $t[0];
+    my @t2 = split /_/, $id;
     $others{$t2[1]}{$t2[2]}=1;
+  }
   }
 }
 close(INFL);
 
 my %protein=();
-open(INFL, $ARGV[0]) or die "$!";
+open(INFL, "matched_protein.fa") or die "need matched_protein.fa file and match.fa file";
 while(<INFL>){
-  my @t =split /\t/;
-  $t[0] =~s/ (.*)//;
-  my @t2 = split /_/, $t[0];
-  $protein{$t2[1]}{$t2[2]}=1;
+  if (/^>/){
+   my @t2 = split /_/;
+   $protein{$t2[1]}{$t2[2]}=1;
+  }
 }
 close(INFL);
 
@@ -60,7 +58,8 @@ foreach my $m (keys %c1){
      
      foreach my $u ( keys %{$c1{$m}{$c}} ){
        if(!exists $umis{$u}){
-         $nu+= $c1{$m}{$c}{$u};
+         my $ng= scalar keys %{$mr2{$c}{$u}};
+         $nu+= 1/$ng;
          my @misumis = mismatchstr($u);
          $umis{$_}++ for (@misumis);
        }
