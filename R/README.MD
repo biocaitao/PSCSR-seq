@@ -1,1 +1,1 @@
-sRNA and miRNA analysis demo scrip
+sRNA and miRNA analysis demo scripts
