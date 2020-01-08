@@ -5,7 +5,7 @@ while(<INFL>){
   my $seq = <INFL>;
   my $l = length($seq);
 #  print $id, $seq, "\n";
-  if( $l>=15 and $l<=39){
+  if( $l>=16 and $l<=40){
     print $id;
     print $seq;
     
