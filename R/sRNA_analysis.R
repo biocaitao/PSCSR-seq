@@ -97,10 +97,10 @@ VlnPlot(cells, c( "miRNA", "tRNA" , "rRNA","snRNA", "snoRNA","protein"))
 #cells <- subset(x = cells, subset = rRNA <0.5  )
 
 cells <- NormalizeData(object = cells, normalization.method = "LogNormalize",scale.factor = 10000)
-cells <- FindVariableFeatures(object = cells, selection.method = "mean.var.plot",mean.cutoff = c(0.00125, Inf), dispersion.cutoff = c(0.1, Inf))
+#cells <- FindVariableFeatures(object = cells, selection.method = "mean.var.plot",mean.cutoff = c(0.00125, Inf), dispersion.cutoff = c(0.1, Inf))
+cells <- FindVariableFeatures(object = cells, selection.method = "vst",nfeatures=2000)
 VariableFeaturePlot(object = cells)
-length(x = VariableFeatures(object = cells))
-cells <- ScaleData(object = cells, features = VariableFeatures(object = cells), vars.to.regress = c("nCount_RNA"))
+cells <- ScaleData(object = cells)
 cells <- RunPCA(object = cells, features = VariableFeatures(object = cells))
 
 ElbowPlot(object = cells,ndims = 50)
@@ -108,7 +108,7 @@ cells <- RunTSNE(object = cells, dims = 1:50)
 DimPlot(object = cells, reduction = "tsne", pt.size = 2)
 
 cells <- FindNeighbors(object = cells, dims = 1:50)
-cells <- FindClusters(object = cells, resolution =seq(0.1,1, 0.1))
+cells <- FindClusters(object = cells, resolution =seq(0.1,2, 0.1))
 
 Idents(object = cells)<-'RNA_snn_res.0.5'
 DimPlot(object = cells, reduction = "tsne",label = T, pt.size = 2)
