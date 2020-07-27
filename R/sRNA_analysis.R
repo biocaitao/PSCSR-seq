@@ -2,8 +2,21 @@ setwd("~/data/CaiT/sRNA/PSCSR-seq/R/")
 infor<-read.table("~/data/CaiT/sRNA/cell_line/A549_2/new/stat_reads.txt", header = F, as.is = T, sep = "\t")
 barcodes<-read.table("ICELL8_barcodes.txt", header = F, as.is = T)
 
+#inflection cutoff
+n_cells <- length(barcodes[,1])
+totals <- infor[,5] #UMI count for each nanowells
+names(totals)<-infor[,1] 
+barcode_rank <- log10(rank(- totals[totals>100]))
+log_lib_size <- log10(totals[totals>100])
+o <- order(barcode_rank)
+log_lib_size <- log_lib_size[o]
+barcode_rank <- barcode_rank[o]
+rawdiff <- diff(log_lib_size)/diff(barcode_rank)
+inflection <- which.min(rawdiff)
+thresh = 10^log_lib_size[inflection]
+
 #10X genomics criteria, expected cell 1173
-n_cells <- 1173
+n_cells <- length(barcodes[,1])
 totals <- infor[,5]
 names(totals)<-infor[,1]
 totals <- sort(totals, decreasing = TRUE)
