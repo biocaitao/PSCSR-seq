@@ -22,6 +22,9 @@ names(totals)<-infor[,1]
 totals <- sort(totals, decreasing = TRUE)
 thresh = totals[round(0.01*n_cells)]/10
 
+#manual setting
+thresh = 500
+
 plot(totals, pch=20, col="grey", xlab = "Barcodes", ylab = "Raw nUMI")
 abline(v=sum(infor[,5]> thresh), col="red", lwd=2)
 points(which(names(totals) %in% barcodes[,1]),totals[names(totals) %in% barcodes[,1]], pch=20)
