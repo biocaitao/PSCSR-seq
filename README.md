@@ -63,7 +63,7 @@ b. mature miRNA count
 ```bash
 > perl filter_ncRNA.pl mature_miRNA.gff3 seq.map > miRNA.map ; 
 > perl count_miRNA.pl mRNA.map > miRNA.count ; 
-> perl perl degenerate.pl  mature.fa  miRNA.count hsa  > miRNA.count.deg ; 
+> perl degenerate.pl  mature.fa  miRNA.count hsa  > miRNA.count.deg ; 
 ```
 
 #### 7. reads stat for QC
