@@ -30,12 +30,13 @@ e.g.
 > bowtie ../hg38 -f SRR14284465.ncRNA.fa SRR14284465.seq.map -a -v 0 -m 500 -p 32;
 ```
 
-#### 5. annotate small RNA reads
+#### 4. annotate small RNA reads
 e.g.
 ```bash
 > perl  ../filter_ncRNA.pl ../ncRNA.gff3 SRR14284465.seq.map > SRR14284465.ncRNA.map ;
 ```
-#### 6. down_sample reads and count miRNAs
+
+#### 5. down_sample reads and count miRNAs
 
 ```bash
 > head -600000 SRR14284465.fastq.processed.fa > SRR14284465.sampling;
@@ -45,4 +46,7 @@ e.g.
 > perl  ../filter_ncRNA.pl  ../ncRNA.gff3 SRR14284465.sampling.seq.map > SRR14284465.sampling.ncRNA.map ;
 #downsampling 30K, 50K, 100K, 200K, 300K reads and count mirnas;
 > perl sampling.pl SRR14284465.sampling.ncRNA.map > sampling.txt;
+
+#similary for PSCSR-seq, we extract raw reads according to cell barcodes and repeat the pipeline
+#
 ```
