@@ -46,7 +46,7 @@ e.g.
 > sh reproducible.sh
 ```
 
-#### 5. down_sample reads and count miRNAs
+#### 6. down_sample reads and count miRNAs
 
 ```bash
 > head -600000 SRR14284465.fastq.processed.fa > SRR14284465.sampling;
