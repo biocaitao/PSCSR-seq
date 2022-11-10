@@ -30,10 +30,20 @@ e.g.
 > bowtie ../hg38 -f SRR14284465.ncRNA.fa SRR14284465.seq.map -a -v 0 -m 500 -p 32;
 ```
 
-#### 4. annotate small RNA reads
+#### 4. annotate small RNA reads and count ncRNA
 e.g.
 ```bash
 > perl  ../filter_ncRNA.pl ../ncRNA.gff3 SRR14284465.seq.map > SRR14284465.ncRNA.map ;
+> perl  count_ncRNA2.pl SRR14284465.ncRNA.map > SRR14284465.ncRNA.count;
+```
+
+#### 5. calculate the reproducibility
+e.g.
+```bash
+> cut -f 1 SRR14284465.ncRNA.count |sort > SRR14284465.ncRNA.count.sort;
+> cut -f 1 SRR14284466.ncRNA.count |sort > SRR14284466.ncRNA.count.sort;
+# using comm/uniq command to compare two sorted files
+> sh reproducible.sh
 ```
 
 #### 5. down_sample reads and count miRNAs
