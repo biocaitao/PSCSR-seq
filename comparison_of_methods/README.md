@@ -10,7 +10,7 @@ b. bowtie reference database
 
 e.g. 
 ```bash
-> cd comparisons:
+> cd comparison_of_methods;
 > ~/sratoolkit.2.9.6-centos_linux64/bin/prefetch SRR14284465;
 > ~/sratoolkit.2.9.6-centos_linux64/bin/fasterq-dump  SRR14284465.sra
 ```
@@ -57,6 +57,6 @@ e.g.
 #downsampling 30K, 50K, 100K, 200K, 300K reads and count mirnas;
 > perl sampling.pl SRR14284465.sampling.ncRNA.map > sampling.txt;
 
-#similary for PSCSR-seq, we extracted reads according to cell barcodes and repeat the pipeline
+#similary for PSCSR-seq, we extracted reads from A549 "processed.fa" according to cell barcodes and repeat the pipeline
 #
 ```
