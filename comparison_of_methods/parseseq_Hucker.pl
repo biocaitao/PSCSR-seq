@@ -7,7 +7,7 @@ if(@ARGV<1) {
 
 open(INFL, "$ARGV[0]") or die "$!";
 
-#the modification of adapters sound to induce some sequencing errors. 
+#the modifications of adapters seem to induce some sequencing errors. 
 #cut additional nt to remove adapters completely
 my $find2 = "[ACGT]TGGAATTC";
 
