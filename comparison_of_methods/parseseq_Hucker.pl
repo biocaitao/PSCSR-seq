@@ -1,13 +1,12 @@
 use strict;
 
-my %wl =();
 if(@ARGV<1) {
   die "perl parseseq.pl seq.fastq";
 }
 
 open(INFL, "$ARGV[0]") or die "$!";
 
-#the modifications of adapters seem to induce some sequencing errors. 
+#the chemical modifications of adapters seem to induce some sequencing errors. 
 #cut additional nt to remove adapters completely
 my $find2 = "[ACGT]TGGAATTC";
 
